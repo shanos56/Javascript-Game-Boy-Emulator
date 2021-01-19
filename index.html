@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Gameboy Emulator</title>
+        <meta name="description" content="A Javascript Gameboy Emulator">
+        <link rel="stylesheet" href="main.css">
+        <script type="text/javascript">
+            
+            window.addEventListener("DOMContentLoaded", function(e) {
+                
+                var gb = document.querySelector("#GBEmu");
+
+                var gbcx = gb.getContext('2d');
+                
+                var video = function (_scale) {
+                    var width = 160;
+                    var height = 144;
+                    
+                    var aspectRatio = 160/144;
+                    var scale = _scale;
+                    
+                    var rects[width*height] = [];
+                    
+                    var grid = function () {
+                        
+                        for (var x = 0; x < width; x++) {
+                            
+                            for (var y = 0; y < height; y++) {
+                                
+                                gbcx.fillStyle = "#ffffff";
+                                gbcx.fillRect(x*scale,y*scale,1*scale,1*scale);
+                                gbcx.stroke();
+                                
+                            }
+                            
+                        }
+                    }
+                    
+                    var setGrid = function(arr) {
+                        
+                        for (var x = 0; x < width; x++) {
+                            
+                            for (var y = 0; y < height; y++) {
+                                
+                                gbcx.fillStyle = arr[x][y];
+                                gbcx.fillRect(x*scale,y*scale,1*scale,1*scale);
+                                gbcx.stroke();
+                                
+                            }
+                            
+                        }
+                    }
+                    
+                    this.resetRect = function (rectno,color) {
+                        
+                        var x = rectno % width;
+                        var y = (rectno - x) / width;
+                        this.changeRect(x,y,color);
+                        
+                    }
+                    
+                    this.changeRect = function (x,y,color) {
+                        
+                        var width = 1*scale;
+                        var height = width;
+                        gbcx.fillStyle = color;
+                        gbcx.fillRect(x*scale,y*scale,width,height);
+                        gbcx.stroke();
+                        
+                    }
+                    
+                    var constructor = function () {
+                        grid();
+                    }
+                    
+                    constructor();
+                    return this;
+                }
+                
+
+            });
+            
+        
+        </script>
+    </head>
+    <body>
+        
+        
+        <canvas id="GBEmu" width="160" height="144">
+        
+            
+        
+        </canvas>
+ 
+        
+    </body>
+</html>
