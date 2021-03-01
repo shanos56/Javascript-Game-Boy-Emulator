@@ -12,11 +12,22 @@ var Address = function (address) {
     }
     
     this.high = function () {
-        return addr[0] & 0xff00;
+        return (addr[0] & 0xff00) >> 8;
     }
     
+    this.set_low = function (low) {
+        addr[0] = (addr[0] & 0xff00) | (low & 0xff);
+    }
+    
+    this.set_high = function (high) {
+        addr[0] = (high & 0xff00) | (addr[0] & 0xff);
+    }
     this.increment = function() {
         addr[0]++;
+    }
+    
+    this.decrement = function () {
+        addr[0]--;
     }
     
     this.inRange = function(low,high) {
@@ -31,9 +42,10 @@ var Address = function (address) {
         return addr[0] == val;
     }
     
-    this.equal = function (val) {
+    this.set = function (val) {
         addr[0] = val;
     }
+    
     
     this.value = function () {
         return addr[0];
@@ -46,5 +58,4 @@ var Address = function (address) {
     __constructor();
     return this;
     
-
 }
