@@ -3,7 +3,7 @@
 /* global GBEmu */
 
 
-GBEmu.timer = function () {
+GBEmu.timer = function (cpu1) {
 
     var divider = 0;
     var timer = 0; // memory register 0xff05
@@ -21,6 +21,8 @@ GBEmu.timer = function () {
     
     var double_speed_mode = 0;
     
+    
+    var cpu = cpu1;
     
     // this is not actual frequencies of timers
     // its (cpu frequency(hz)) / (timer frequency(hz))
@@ -59,9 +61,8 @@ GBEmu.timer = function () {
     } 
     
     this.interrupt = function () {
-        // todo set memory register 0xff0f to interrupt code
         // set bit 2 of 0xff0f to 1
-        //mmu->interrupt_flag |= 0x04;
+        cpu.interrupt_flag |= 0x04;
     }
     //
     this.stop = function () {
